@@ -44,4 +44,9 @@ print('Confusion matrix for Naive Bayes\n',cm)
 print('accuracy_Naive Bayes: %.3f' %accuracy)
 print('precision_Naive Bayes: %.3f' %precision)
 print('recall_Naive Bayes: %.3f' %recall)
-print('f1-score_Naive Bayes : %.3f' %f1)
+
+tp = cm[0][0]
+tn = cm[1][1] + cm[1][2] + cm[2][2] + cm[2][1]
+fn = cm[0][1] + cm[0][2]
+fp = cm[1][0] + cm[2][0]
+print(tp,tn,fn,fp)
