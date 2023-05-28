@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import os
+print(os.listdir())
+
+
+df = pd.read_csv('academicPerformance.csv',na_values = ['na','none','None','N/a','--'])
+print(df.head())
+
+
+df['reading score']
+
+
+df['reading score'].isnull().sum()
+
+
+dataset = [21,9,12,42,23,32,54,99,61,88]
+dataset = sorted(dataset)
+q1,q3 = np.percentile(dataset,[25,75])
+print(q1,q3)
+
+
+iqr = q3 - q1
+print(iqr)
+
+
+lowerBound = q1 - (iqr*1.5)
+upperBound = q3 - (iqr*1.5)
+print(lowerBound,upperBound)
+
+
+df["Dt_Admission"] = pd.to_datetime(df["Dt_Admission"],format="%Y-%m-%d",errors = "coerce")
+print(df["Dt_Admission"])
+
+
+
+df['Fees$'] = df['College_Fees'].str.replace(',', '').str.replace('$', '').str.replace('.', '').fillna(0).astype(int)
+df['Fees_M$'] = df['Fees$'].apply(lambda X:round(X/1000000))
