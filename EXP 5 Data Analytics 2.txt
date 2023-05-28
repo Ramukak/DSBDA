@@ -1,0 +1,55 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score,confusion_matrix,precision_score,recall_score,f1_score,
+
+df = pd.read_csv('socialNetwork.csv')
+df.head()
+
+df.info()
+
+df.isnull().sum()
+
+df['Purchased'].describe()
+
+df.shape
+
+x = df.iloc[:,[2,3]].values
+y = df.iloc[:,4].values
+
+print(x)
+
+X_train,  X_test, Y_train, Y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+
+sc =StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.fit_transform(X_test)
+reg = LogisticRegression(random_state=0)
+reg.fit(X_train,Y_train)
+pred = reg.predict(X_test)
+print(pred)
+
+print(Y_test)
+
+accuracy = accuracy_score(Y_test,pred)
+print(accuracy)
+
+confMat = confusion_matrix(Y_test,pred)
+print(confMat)
+
+tp = confMat[0][0]
+tn = confMat[1][1]
+fn = confMat[1][0]
+fp = confMat[0][1]
+
+acc = (tn + tp)/(tn+fp+tp+fn)
+err = (fn + fp)/(tn+fp+tp+fn)
+print(acc,err)
+
+precision_score(Y_test,pred)
+
+recall_score(Y_test,pred)
+
+f1_score(Y_test,pred)

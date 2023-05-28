@@ -1,0 +1,19 @@
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+
+california = fetch_california_housing()
+x = pd.DataFrame(california.data,columns=california.feature_names)
+y = pd.DataFrame(california.target,columns=["PRICES"])
+
+reg = LinearRegression()
+xTrain,xTest,yTrain,yTest = train_test_split(x,y,test_size=0.20,random_state=42)
+reg.fit(xTrain,yTrain)
+
+print(reg.coef_)
+
+yPredict = reg.predict(xTest)
+print(yPredict)
+
