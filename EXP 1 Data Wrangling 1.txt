@@ -1,0 +1,38 @@
+import os
+import pandas as pd
+import numpy as np
+
+print(os.listdir())
+
+
+df = pd.read_csv('studentRecord.csv')
+
+
+df
+
+
+df.isnull().sum()
+
+df.describe()
+
+df.dtypes
+
+df.dropna(axis=1)
+
+y = df.iloc[:,0:1]
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+y = le.fit_transform(y)
+print(y)
+
+df
+
+df["race/ethnicity"].value_counts()
+
+
+dfLunch = pd.get_dummies(df['lunch'])
+dfNew = pd.concat([df,dfLunch],axis = 1)
+print(dfNew)
+
+dfNew
