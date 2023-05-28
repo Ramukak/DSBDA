@@ -1,0 +1,58 @@
+import pandas as pd
+import numpy as np
+from scipy import stats
+
+dataset = [82,92,98,23,54,67,24,94,45,54,65,24]
+dataset = sorted(dataset)
+print(dataset)
+
+print(np.mean(dataset))
+print(np.median(dataset))
+print(stats.mode(dataset))
+
+print(sum(dataset)/len(dataset))
+
+n = len(dataset)
+if n%2 != 0:
+    md = dataset[n//2]
+else:
+    temp = (dataset[n//2] + dataset[n//2 -1]) /2
+    md = temp
+    
+print(md)
+
+
+dct = {}
+max= 0
+for i in dataset:
+    if i not in dct:
+        dct[i] = 1
+    else:
+        dct[i]+=1
+        
+maxo,maxi =0,0
+for i,j in dct.items():
+    if j>maxi:
+        maxi = j
+        maxo =i
+print(maxo,maxi)
+
+
+df = pd.DataFrame({'A':['a','b','c','b','a'],'B':[1,2,1,2,1]},dtype = "category")
+print(df.groupby(['A']).count().reset_index())
+
+
+df = pd.read_csv('iris.csv')
+df.head()
+
+df["Species"].unique()
+
+sentosa = df["Species"] == 'Iris-setosa'
+versicolor = df["Species"] == 'Iris-versicolor'
+virginica = df["Species"] == 'Iris-virginica'
+print("\nsetosa\n")
+print(df[sentosa].describe())
+print("\nversicolor\n")
+print(df[versicolor].describe())
+print("\nvirginica\n")
+print(df[virginica].describe())
